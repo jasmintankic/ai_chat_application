@@ -12,7 +12,6 @@ body {
 .ai-chat-body-wrapper {
 	text-align: center;
     width: 500px;
-    height: 200px;
     float: left;
     margin-top: 50px;
     margin-left: 85px;
@@ -32,7 +31,6 @@ body {
 }
 .chat-details {
     height: 60px;
-    border-bottom: 1px solid #DDDDDD;
     background-color: white;
     position: relative;
     text-align: left;
@@ -40,6 +38,7 @@ body {
     padding-top: 5px;
     padding-right: 85px;
     color: #949494;
+    border-bottom: 1px solid #4F4F4F;
 }
 .ai-profile-image {
 	position: absolute;
@@ -48,4 +47,38 @@ body {
 	width: 62px;
 	height: 62px;
 	border: 1px solid black;
+}
+.chat-body {
+	text-align: left;
+	float: left;
+	padding-left: 30px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.ai-chat-bubble 
+{
+position: relative;
+float: left;
+margin-bottom: 5px;
+max-width: 200px;
+padding: 6px;
+display: inline-block;
+background: #FFFFFF;
+-webkit-border-radius: 9px;
+-moz-border-radius: 9px;
+border-radius: 9px;
+}
+
+.ai-chat-bubble:after 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 4px 19px 4px 0;
+border-color: transparent #FFFFFF;
+display: block;
+width: 0;
+z-index: 1;
+left: -19px;
+top: 11px;
 }

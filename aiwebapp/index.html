@@ -1,0 +1,35 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UI - AI CHAT APP</title>
+
+    <!-- app scripts -->
+    <script src="lib/jquery/jquery-1.12.1.min.js"></script>
+    <script src="lib/angularjs/angular.min.js"></script>
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css">
+    <!--/////////////-->
+
+  </head>
+    <body ng-app="ui-chat-app">
+    <div class="app-holder" ng-controller="aiChatBrain">
+        <div id="page-wrapper">
+        <ai-chat-body></ai-chat-body>
+        </div>
+        <div id="footer-wrapper">footer</div>
+    </div>
+
+    <!-- app components -->
+    <script src="app.js"></script>
+    <script src="components/aiChatBrain.js"></script>
+    <script src="components/aiChatBody.js"></script>
+    <!--/////////////-->
+
+    <!-- app styles -->
+    <link rel="stylesheet" href="components/styles/aichatappearance.css" />
+    <!--/////////////-->
+</body>
+</html>

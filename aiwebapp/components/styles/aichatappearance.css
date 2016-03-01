@@ -1,5 +1,7 @@
 body {
-	background-image: url('/components/styles/images/school.png');
+	background-image: url('/components/styles/images/robot.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
 }
 #footer-wrapper {
 	position: absolute;
@@ -9,5 +11,41 @@ body {
 }
 .ai-chat-body-wrapper {
 	text-align: center;
-	font-size: 25px;
+    width: 500px;
+    height: 200px;
+    float: left;
+    margin-top: 50px;
+    margin-left: 85px;
+    border: 1px solid #4F4F4F;
+    border-radius: 5px;
+    background-image: url('/components/styles/images/school.png');
+}
+.chat-header {
+    background-color: #4F4F4F;
+    height: 25px;
+    text-align: center;
+    color: white;
+    font-size: 12px;
+    padding-top: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.chat-details {
+    height: 60px;
+    border-bottom: 1px solid #DDDDDD;
+    background-color: white;
+    position: relative;
+    text-align: left;
+    padding-left: 85px;
+    padding-top: 5px;
+    padding-right: 85px;
+    color: #949494;
+}
+.ai-profile-image {
+	position: absolute;
+    left: 10px;
+    top: -20px;
+	width: 62px;
+	height: 62px;
+	border: 1px solid black;
 }

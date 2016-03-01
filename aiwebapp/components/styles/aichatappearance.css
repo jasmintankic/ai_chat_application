@@ -1,4 +1,13 @@
+body {
+	background-image: url('/components/styles/images/school.png');
+}
 #footer-wrapper {
 	position: absolute;
 	bottom: 0;
+	width: 100%;
+	text-align: center;
+}
+.ai-chat-body-wrapper {
+	text-align: center;
+	font-size: 25px;
 }

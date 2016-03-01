@@ -3,7 +3,7 @@ Praktični dio predmeta "Umjetna inteligencija" (FIT 2. godina master studija) j
 
 0. Skinuti projekat
 1. Instalirati Node.js - 4.3.1 LTS ( https://nodejs.org/en/ ) 
-2. Otvoriti CMD unutar aiwebapp foldera
+2. Otvoriti comand promt unutar aiwebapp foldera
 3. npm install -g grunt-cli bower
 4. npm install
 5. grunt serve

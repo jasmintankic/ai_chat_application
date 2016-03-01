@@ -1,2 +1,2 @@
 # ai_chat_application
-Seminarski rad iz predmeta Umjetna inteligencija (Jasmin Tankic, Imad Muratspahic, Sanid Tipura)
+Praktični dio predmeta "Umjetna inteligencija" (FIT 2. godina master studija) je chat aplikacija, koja odgovara na postavljena pitanja.

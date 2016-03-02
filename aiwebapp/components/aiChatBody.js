@@ -20,14 +20,21 @@
             $scope.botResponse;
             var chatMessage = {};
 
+            var processChatMessage = function (message) {
+                console.log(message);
+                console.log('test');
+            };
+
 
             $scope.sendMessage = function(message) {
-                chatMessage = {};
-                chatMessage.type = 'user';
-                chatMessage.content = message;
-                $scope.conversation.push(chatMessage);
-                autoChatScroll();
-                $scope.userMessage = '';
+                if (!_.isEmpty(message)) {
+                    chatMessage = {};
+                    chatMessage.type = 'user';
+                    chatMessage.content = message;
+                    $scope.conversation.push(chatMessage);
+                    autoChatScroll();
+                    $scope.userMessage = '';
+                }
             };
 
             var autoChatScroll = function() {

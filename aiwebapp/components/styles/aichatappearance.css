@@ -10,7 +10,6 @@ body {
 	text-align: center;
 }
 .ai-chat-body-wrapper {
-	text-align: center;
     width: 500px;
     float: left;
     margin-top: 50px;
@@ -115,4 +114,18 @@ top: 11px;
 .chat-container {
 	height: 60px;
 	border-top: 1px solid #4F4F4F;
+}
+.message-container {
+	float: left;
+	width: 380px;
+	resize: none;
+	height: 55px !important;
+	margin-left: 2px;
+	margin-top: 2px;
+}
+.send-button-wrapper {
+    float: right;
+    margin-right: 10px;
+    margin-top: 13px;
+    width: 95px;
 }

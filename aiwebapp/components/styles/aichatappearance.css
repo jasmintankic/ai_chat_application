@@ -57,7 +57,7 @@ body {
     width: 100%;
     background-image: url('/components/styles/images/school.png');
     overflow-y: scroll;
-    height: 400px;
+    height: 300px;
 }
 .ai-chat-bubble 
 {
@@ -111,4 +111,8 @@ width: 0;
 z-index: 1;
 right: -25px;
 top: 11px;
+}
+.chat-container {
+	height: 60px;
+	border-top: 1px solid #4F4F4F;
 }

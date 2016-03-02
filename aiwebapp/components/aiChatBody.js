@@ -15,6 +15,7 @@
 
         function linkFunction() {
             console.log('AI BODY IS IN FUNCTION');
+            console.log('imad test');
         }
     }
 })();

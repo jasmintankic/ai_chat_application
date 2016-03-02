@@ -51,8 +51,8 @@ body {
     float: left;
     padding-left: 30px;
     padding-top: 10px;
-    padding-bottom: 10px;
     padding-right: 30px;
+    padding-bottom: 10px;
     width: 100%;
     background-image: url('/components/styles/images/school.png');
     overflow-y: scroll;
@@ -90,12 +90,14 @@ top: 11px;
 {
 position: relative;
 max-width: 200px;
+margin-bottom: 5px;
 padding: 6px;
 float: right;
 background: #F6F6F6;
 -webkit-border-radius: 9px;
 -moz-border-radius: 9px;
 border-radius: 9px;
+word-break: break-word;
 }
 
 .user-bubble:after 

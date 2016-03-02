@@ -5,16 +5,17 @@
 	<div>BOT 2016</div>
 	<div>Artificial Intelignce Chat Bot</div>
 </div>
-<div class="chat-body">
-	<div class="ai-chat-bubble">Hello, my name is Boot 2016, how i can help you ?</div>
-	<div class="clearfix"></div>
-	<div class="ai-chat-bubble">Hello, my name is Boot 2016, how i can help you ?</div>
-	<div class="clearfix"></div>
-	<div class="user-bubble ">Hows going?</div>
+<div class="chat-body" id="conversation">
+	<div ng-repeat="message in conversation">
+		<div ng-class="message.type === 'user' ? 'user-bubble' : 'ai-chat-bubble'">{{message.content}}</div>
+		<div class="clearfix"></div>		
+	</div>
 </div>
 <div class="clearfix"></div>
-<div class="chat-container">
-	<input class="form-control message-container"></input>
-	<button type="button" class="btn btn-info send-button-wrapper">Send</button>
+<form ng-submit="sendMessage(userMessage)">
+	<div class="chat-container">
+	<input class="form-control message-container" ng-model="userMessage">
+	<button type="button" ng-click="sendMessage(userMessage)" class="btn btn-info send-button-wrapper">Send</button>
 </div>
+</form>
 </div>

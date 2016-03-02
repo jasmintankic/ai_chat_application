@@ -17,7 +17,6 @@ body {
     margin-left: 85px;
     border: 1px solid #4F4F4F;
     border-radius: 5px;
-    background-image: url('/components/styles/images/school.png');
     box-shadow: 0 2px 10px 0 rgba(0,0,0,.2);
 }
 .chat-header {
@@ -32,7 +31,6 @@ body {
 }
 .chat-details {
     height: 60px;
-    background-color: white;
     position: relative;
     text-align: left;
     padding-left: 85px;
@@ -51,10 +49,15 @@ body {
 }
 .chat-body {
 	text-align: left;
-	float: left;
-	padding-left: 30px;
-	padding-top: 10px;
-	padding-bottom: 10px;
+    float: left;
+    padding-left: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 30px;
+    width: 100%;
+    background-image: url('/components/styles/images/school.png');
+    overflow-y: scroll;
+    height: 400px;
 }
 .ai-chat-bubble 
 {
@@ -64,10 +67,11 @@ margin-bottom: 5px;
 max-width: 200px;
 padding: 6px;
 display: inline-block;
-background: #FFFFFF;
+background: #329FD9;
 -webkit-border-radius: 9px;
 -moz-border-radius: 9px;
 border-radius: 9px;
+color: white;
 }
 
 .ai-chat-bubble:after 
@@ -76,10 +80,35 @@ content: '';
 position: absolute;
 border-style: solid;
 border-width: 4px 19px 4px 0;
-border-color: transparent #FFFFFF;
-display: block;
+border-color: transparent #329FD9;
 width: 0;
 z-index: 1;
 left: -19px;
+top: 11px;
+}
+
+.user-bubble 
+{
+position: relative;
+max-width: 200px;
+padding: 6px;
+float: right;
+background: #F6F6F6;
+-webkit-border-radius: 9px;
+-moz-border-radius: 9px;
+border-radius: 9px;
+}
+
+.user-bubble:after 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 4px 0 4px 25px;
+border-color: transparent #F6F6F6;
+display: block;
+width: 0;
+z-index: 1;
+right: -25px;
 top: 11px;
 }

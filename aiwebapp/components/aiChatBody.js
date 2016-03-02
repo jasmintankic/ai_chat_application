@@ -16,7 +16,7 @@
         function linkFunction() {
             console.log('AI BODY IS IN FUNCTION');
             console.log('imad test');
-
+            console.log('git gui izmjena');
             console.log('imad test 2');
         }
     }

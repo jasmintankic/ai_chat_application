@@ -118,9 +118,9 @@ top: 11px;
 .message-container {
 	float: left;
 	width: 380px;
-	resize: none;
-	height: 55px !important;
+	height: 55px;
 	margin-left: 2px;
+    word-break: break-word;
 	margin-top: 2px;
 }
 .send-button-wrapper {

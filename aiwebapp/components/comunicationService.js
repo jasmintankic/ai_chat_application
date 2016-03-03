@@ -5,43 +5,78 @@
         .module('ui-chat-app')
         .factory('comunicationService', comunicationService);
 
-    function comunicationService() {
+    function comunicationService(speechDatabase, interactionInformations) {
         var speechService = {
             processAnswer: processAnswer
         };
 
-        var questionNotDefinedProperlyResponse = [
-        'Sorry, im not sure if I understand what are you saying, can you be more specific please ?',
-        'Excuse me, but i really dont know what are you saying, can you be more specific please?',
-        'Ok, thats not question, are you just spamming to test me ?',
-        'Can you please repeat and maybe define better your question, im not sure if i understand it properly ?', 
-        'Sorry, but i dont know what are you telling me, if you are having difficulties speaking with me, press HELP and there you can find all information that can help me to understand you better.',
-        'Im just sample of low-end Artificial Inteligence, do you really expect me to understand that nonsense ?',
-        'I dont understand what are you saying, can you please check your spelling one more time ?'
-        ];
-
-        var AiResponse;
+        var AiResponse,
+            specificResponses = speechDatabase.specificResponses,
+            globalResponses = speechDatabase.globalResponses;
 
         return speechService;
 
         ////////////////
 
-        function processAnswer(message){
+        function processAnswer(message, isInit) {
             AiResponse = '';
-            checkIfAskedForName(message);
 
-            if(_.isEmpty(AiResponse)) {
-                AiResponse = _.sample(questionNotDefinedProperlyResponse);
+            checkIfAskedForName(message);
+            checkIfUserToldName(message);
+
+            if (_.isEmpty(AiResponse) && !isInit) {
+                AiResponse = _.sample(globalResponses.questionNotDefinedProperly);
+            } else if (isInit) {
+                AiResponse = _.sample(globalResponses.welcome);
             }
 
             return AiResponse;
         }
 
-        function checkIfAskedForName (message) {
-            var nameKeys = 'your,name';
+        function checkIfAskedForName(message) {
+            var askedFornameValidator = 0;
+
+            angular.forEach(specificResponses.nameObject.keys, function(value) {
+                if (message.indexOf(value) >= 0) {
+                    askedFornameValidator++;
+                }
+            });
+
+            if (askedFornameValidator === specificResponses.nameObject.askedTrigger) {
+                if (specificResponses.nameObject.isAsked > 0) {
+                    AiResponse = _.sample(specificResponses.nameObject.alreadyAskedResponse);
+                } else if(_.isEmpty(interactionInformations.getUserName())) {
+                    AiResponse = _.sample(specificResponses.nameObject.response);
+                } else if (!_.isEmpty(interactionInformations.getUserName())) {
+                    AiResponse = _.sample(specificResponses.nameObject.response).replace(', may i know your name?','.');
+                }
+                specificResponses.nameObject.isAsked++;
+            }
         };
 
-        ///work in progress
+        function checkIfUserToldName(message) {
+            var userToldNameValidator = 0;
+
+            angular.forEach(specificResponses.userNameObject.keys, function(value) {
+                if (message.indexOf(value) >= 0) {
+                    userToldNameValidator++;
+                }
+            });
+
+            if (userToldNameValidator === specificResponses.userNameObject.askedTrigger) {
+                
+                var keyWord = message.lastIndexOf('is');
+                var name = message.substring(keyWord + 3);
+                interactionInformations.setUserName(name);
+
+                if (specificResponses.userNameObject.isAsked > 0) {
+                    AiResponse = _.sample(specificResponses.userNameObject.alreadyAskedResponse).replace('USER_NAME',interactionInformations.getUserName());
+                } else {
+                    AiResponse = _.sample(specificResponses.userNameObject.response).replace('USER_NAME',interactionInformations.getUserName());
+                }
+                specificResponses.userNameObject.isAsked++;
+            }
+        };
     }
 
 })();

@@ -18,13 +18,16 @@
             $scope.conversation = [];
             $scope.userMessage;
 
-            var processChatMessage = function (message) {
-                var aiMessage = {};
-                aiMessage.type = 'ai';
-                aiMessage.content = comunicationService.processAnswer(message);
-                $scope.conversation.push(aiMessage);
+            var init = function () {
+                processChatMessage('', true);             
             };
 
+            var processChatMessage = function (message, isInit) {
+                var aiMessage = {};
+                aiMessage.type = 'ai';
+                aiMessage.content = comunicationService.processAnswer(message.toLowerCase(), isInit);
+                $scope.conversation.push(aiMessage);
+            };
 
             $scope.sendMessage = function(message) {
                 if (!_.isEmpty(message)) {
@@ -34,7 +37,7 @@
                     $scope.conversation.push(chatMessage);
                     autoChatScroll();
                     $scope.userMessage = '';
-                    processChatMessage();
+                    processChatMessage(message, false);
                 }
             };
 
@@ -44,6 +47,8 @@
                     box.scrollTop = box.scrollHeight;
                 });
             };
+
+            init();
 
             console.log('AI BODY IS IN FUNCTION');
         }

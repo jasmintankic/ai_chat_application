@@ -63,7 +63,7 @@ body {
 position: relative;
 float: left;
 margin-bottom: 5px;
-max-width: 200px;
+max-width: 210px;
 padding: 6px;
 display: inline-block;
 background: #329FD9;
@@ -89,7 +89,7 @@ top: 11px;
 .user-bubble 
 {
 position: relative;
-max-width: 200px;
+max-width: 210px;
 margin-bottom: 5px;
 padding: 6px;
 float: right;

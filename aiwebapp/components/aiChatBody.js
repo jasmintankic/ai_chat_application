@@ -5,7 +5,7 @@
         .module('ui-chat-app')
         .directive('aiChatBody', aiChatBody);
 
-    function aiChatBody($timeout) {
+    function aiChatBody($timeout, comunicationService) {
         var directive = {
             restrict: 'E',
             templateUrl: 'components/views/ai-chat-body.html',
@@ -17,23 +17,24 @@
 
             $scope.conversation = [];
             $scope.userMessage;
-            $scope.botResponse;
-            var chatMessage = {};
 
             var processChatMessage = function (message) {
-                console.log(message);
-                console.log('test');
+                var aiMessage = {};
+                aiMessage.type = 'ai';
+                aiMessage.content = comunicationService.processAnswer(message);
+                $scope.conversation.push(aiMessage);
             };
 
 
             $scope.sendMessage = function(message) {
                 if (!_.isEmpty(message)) {
-                    chatMessage = {};
+                    var chatMessage = {};
                     chatMessage.type = 'user';
                     chatMessage.content = message;
                     $scope.conversation.push(chatMessage);
                     autoChatScroll();
                     $scope.userMessage = '';
+                    processChatMessage();
                 }
             };
 

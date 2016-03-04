@@ -8,7 +8,7 @@
     function aiChatBody($timeout, comunicationService) {
         var directive = {
             restrict: 'E',
-            templateUrl: 'components/views/ai-chat-body.html',
+            templateUrl: 'components/views/aibody.html',
             link: linkFunction
         };
         return directive;

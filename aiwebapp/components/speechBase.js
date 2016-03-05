@@ -63,6 +63,22 @@
                     ],
                     isAsked: 0
                 },
+                greetingsObject: {
+                    keys: ['hello', 'hey', 'greetings', 'yo'],
+                    askedTrigger: 1,
+                    response: [
+                        'Hello there, can i do something for you ?',
+                        'Greetings',
+                        'Yo!',
+                        'Whats up ?'
+                    ],
+                    alreadyAskedResponse: [
+                        'Hello again!',
+                        'Hmm, we already shared mutual greetings, what are you trying?',
+                        'Hello...I see you are bored, so you are repeating same things...'
+                    ],
+                    isAsked: 0
+                }
             }
         };
 

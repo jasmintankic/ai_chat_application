@@ -21,8 +21,7 @@
         function processAnswer(message, isInit) {
             AiResponse = '';
 
-            checkIfAskedForName(message);
-            checkIfUserToldName(message);
+            proceedWithAnswers(message);
 
             if (_.isEmpty(AiResponse) && !isInit) {
                 AiResponse = _.sample(globalResponses.questionNotDefinedProperly);
@@ -31,6 +30,32 @@
             }
 
             return AiResponse;
+        }
+
+        function proceedWithAnswers(message) {
+            checkIfAskedForName(message);
+            checkIfUserToldName(message);
+            checkForSimpleQuestion(message, specificResponses.greetingsObject);
+        }
+
+        function checkForSimpleQuestion(message, questionObject) {
+            var simpleQuestionValidator = 0;
+
+            angular.forEach(questionObject.keys, function(value) {
+                if (message.indexOf(value) >= 0) {
+                    simpleQuestionValidator++;
+                }
+            });
+
+            if (simpleQuestionValidator === questionObject.askedTrigger) {
+                if (questionObject.isAsked > 0) {
+                    AiResponse = _.sample(questionObject.alreadyAskedResponse);
+                } else {
+                    AiResponse = _.sample(questionObject.response);
+                }
+                questionObject.isAsked++;
+            }
+
         }
 
         function checkIfAskedForName(message) {

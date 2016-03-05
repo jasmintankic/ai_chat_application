@@ -6,8 +6,6 @@
         .controller('aiChatBrain', aiChatBrain);
 
     function aiChatBrain() {
-        console.log('AI BRAIN IS IN FUNCTION');
-        console.log('Testiranje commita Imad');
     }
 
 })();

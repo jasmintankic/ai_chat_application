@@ -49,8 +49,6 @@
             };
 
             init();
-
-            console.log('AI BODY IS IN FUNCTION');
         }
     }
 })();

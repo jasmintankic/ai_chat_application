@@ -69,7 +69,11 @@
 
             if (askedFornameValidator === specificResponses.nameObject.askedTrigger) {
                 if (specificResponses.nameObject.isAsked > 0) {
-                    AiResponse = _.sample(specificResponses.nameObject.alreadyAskedResponse);
+                    if(interactionInformations.checkIfUserChangedName(interactionInformations.getUserName())) {
+                        AiResponse = _.sample(specificResponses.nameObject.refuseToSpeakAboutNames); 
+                    } else {
+                        AiResponse = _.sample(specificResponses.nameObject.alreadyAskedResponse);
+                    }
                 } else if(_.isEmpty(interactionInformations.getUserName())) {
                     AiResponse = _.sample(specificResponses.nameObject.response);
                 } else if (!_.isEmpty(interactionInformations.getUserName())) {
@@ -95,7 +99,11 @@
                 interactionInformations.setUserName(name);
 
                 if (specificResponses.userNameObject.isAsked > 0) {
-                    AiResponse = _.sample(specificResponses.userNameObject.alreadyAskedResponse).replace('USER_NAME',interactionInformations.getUserName());
+                    if(interactionInformations.checkIfUserChangedName(interactionInformations.getUserName())) {
+                        AiResponse = _.sample(specificResponses.userNameObject.nameChangeResponse).replace('USER_NAME',interactionInformations.getUserName()).replace('REAL_NAME',interactionInformations.getRealName());
+                    } else {
+                        AiResponse = _.sample(specificResponses.userNameObject.alreadyAskedResponse).replace('USER_NAME',interactionInformations.getUserName());
+                    }
                 } else {
                     AiResponse = _.sample(specificResponses.userNameObject.response).replace('USER_NAME',interactionInformations.getUserName());
                 }

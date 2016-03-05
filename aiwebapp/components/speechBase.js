@@ -44,6 +44,11 @@
                         'Ok, dont ask me for name anymore, i already told you, its Bot 2016!',
                         'Really you ask me for name again ? I wont tell you, scroll up, and find it...'
                     ],
+                    refuseToSpeakAboutNames: [
+                        'I am not playing with names anymore, you first started to lie about name...',
+                        'Stop talking about names, you lied about name, and now you are asking me again and again...',
+                        'I refuse to talk about names anymore...'
+                    ],
                     isAsked: 0
                 },
                 /////////////
@@ -61,10 +66,18 @@
                         'Ok you told me your name USER_NAME',
                         'You told me your name, do you really think that i already forget it'
                     ],
+                    nameChangeResponse: [
+                        'Hey man, you told me that your name is REAL_NAME, and now its USER_NAME, well then i am Florentino Juan Antonio Sanchez',
+                        'Hey man, first you told me that you are REAL_NAME, now you are telling me its USER_NAME, you dont know your name ? Taking too much drugs lately ?',
+                        'Hmm, first you are telling me that you are REAL_NAME, and now you are saying that you are USER_NAME, STOP taking too much medicaments...',
+                        'I hope you are just testing my memory, but you told me two diferent names...first REAL_NAME, then USER_NAME..., ok then i will play same game, my name is Esteban Rodriguez',
+                        'So we are playing LIE ME ABOUT NAME, ok my name is Rodrigo Munoz...',
+                        'Well i dont know what game are you playing but, but i can do same thing, my name is Francisco Facundo Canizares'
+                    ],
                     isAsked: 0
                 },
                 greetingsObject: {
-                    keys: ['hello', 'hey', 'greetings', 'yo'],
+                    keys: ['hello', 'hey', 'greetings'],
                     askedTrigger: 1,
                     response: [
                         'Hello there, can i do something for you ?',

@@ -27,6 +27,7 @@
                     'Hello is there anything that i can do for you today?'
                 ]
             },
+            answer: 'jape',
             specificResponses: {
                 nameObject: {
                     keys: ['your', 'name'],
@@ -91,6 +92,22 @@
                         'Hello...I see you are bored, so you are repeating same things...'
                     ],
                     isAsked: 0
+                },
+                weatherObject: {
+                    keys: ['weather', 'in'],
+                    askedTrigger: 2,
+                    keywordSeperator: 'in',
+                    response: [
+                        'In REQUESTED_CITY...WEATHER_DESC and temperature of TEMP C',
+                        'REQUESTED_CITY today looks fine, WEATHER_DESC with temperature of TEMP C',
+                        'Weather in REQUESTED_CITY...WEATHER_DESC and temperature of TEMP C '
+                    ],
+                    alreadyAskedResponse: [
+                        'I already told you weather in REQUESTED_CITY, scroll up and find it, its not like weather is changing every few seconds...',
+                        'I told you weather conditions in REQUESTED_CITY, i wont repeat myself, if you want to know weather status in other city, then ask for other city',
+                        'Dont tell me you already forgot about weather in REQUESTED_CITY. i just told you, scroll up and find...'
+                    ],
+                    askedCities: []
                 }
             }
         };

@@ -12,8 +12,7 @@
             getRealName: getRealName,
             checkIfUserChangedName: checkIfUserChangedName,
             getKeywordFromQuestion: getKeywordFromQuestion,
-            checkIfAskedForCity: checkIfAskedForCity,
-            getWeatherInCity: getWeatherInCity
+            checkIfAskedForCity: checkIfAskedForCity
         };
 
         var userInfo = {};
@@ -45,15 +44,6 @@
 
         function getRealName() {
             return userInfo.realName;
-        }
-
-        function getWeatherInCity(city, messageResponse) {
-            externalResourcesService.getWeatherInfo(city).then(function(response) {
-                externalResourcesService.answer = _.sample(messageResponse).replace('REQUESTED_CITY', city).replace('TEMP', response.list[0].main.temp).replace('WEATHER_DESC', response.list[0].weather[0].description);
-                console.log(externalResourcesService.answer);
-                console.log(_.sample(messageResponse).replace('REQUESTED_CITY', city).replace('TEMP', response.list[0].main.temp).replace('WEATHER_DESC', response.list[0].weather[0].description));
-                return _.sample(messageResponse).replace('REQUESTED_CITY', city).replace('TEMP', response.list[0].main.temp).replace('WEATHER_DESC', response.list[0].weather[0].description);
-            });
         }
 
         function checkIfAskedForCity(city, cities) {

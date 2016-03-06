@@ -11,7 +11,7 @@
             globalResponses: {
                 questionNotDefinedProperly: [
                     'Sorry, im not sure if I understand what are you saying, can you be more specific please?',
-                    'Excuse me, but i really dont know what are you saying, can you be more specific please?',
+                    'Excuse me, but i really dont know what are you saying, can you be more specific please? Check your spelling please!',
                     'Ok, thats not question, are you just spamming to test me?',
                     'Can you please repeat and maybe define better your question, im not sure if i understand it properly?',
                     'Sorry, but i dont know what are you telling me, if you are having difficulties speaking with me, press HELP and there you can find all information that can help me to understand you better.',
@@ -22,12 +22,11 @@
                     'Hello there, how i can help you?',
                     'Hello, im here to assist you',
                     'Hello, im here to answer all your questions',
-                    'Hey there',
+                    'Hey there!',
                     'Hello, how i can help you?',
                     'Hello is there anything that i can do for you today?'
                 ]
             },
-            answer: 'jape',
             specificResponses: {
                 nameObject: {
                     keys: ['your', 'name'],
@@ -64,14 +63,15 @@
                     ],
                     alreadyAskedResponse: [
                         'You already told me your name USER_NAME',
+                        'I dont care for your name anymore, stop spamming!',
                         'Ok you told me your name USER_NAME',
                         'You told me your name, do you really think that i already forget it'
                     ],
                     nameChangeResponse: [
                         'Hey man, you told me that your name is REAL_NAME, and now its USER_NAME, well then i am Florentino Juan Antonio Sanchez',
-                        'Hey man, first you told me that you are REAL_NAME, now you are telling me its USER_NAME, you dont know your name ? Taking too much drugs lately ?',
+                        'Hey!, first you told me that you are REAL_NAME, now you are telling me its USER_NAME, you dont know your name ? Taking too much drugs lately ?',
                         'Hmm, first you are telling me that you are REAL_NAME, and now you are saying that you are USER_NAME, STOP taking too much medicaments...',
-                        'I hope you are just testing my memory, but you told me two diferent names...first REAL_NAME, then USER_NAME..., ok then i will play same game, my name is Esteban Rodriguez',
+                        'I hope you are just testing my memory, but you told me two diferent names...first REAL_NAME, then USER_NAME..., ok then, my name is Esteban Rodriguez',
                         'So we are playing LIE ME ABOUT NAME, ok my name is Rodrigo Munoz...',
                         'Well i dont know what game are you playing but, but i can do same thing, my name is Francisco Facundo Canizares'
                     ],
@@ -98,9 +98,10 @@
                     askedTrigger: 2,
                     keywordSeperator: 'in',
                     response: [
-                        'In REQUESTED_CITY...WEATHER_DESC and temperature of TEMP C',
-                        'REQUESTED_CITY today looks fine, WEATHER_DESC with temperature of TEMP C',
-                        'Weather in REQUESTED_CITY...WEATHER_DESC and temperature of TEMP C '
+                        'In REQUESTED_CITY...WEATHER_DESC and temperature of TEMP°C',
+                        'REQUESTED_CITY looks fine, WEATHER_DESC with temperature of TEMP°C',
+                        'Weather in REQUESTED_CITY... WEATHER_DESC and temperature of TEMP°C',
+                        'Let me check REQUESTED_CITY..., its WEATHER_DESC TEMP°C'
                     ],
                     alreadyAskedResponse: [
                         'I already told you weather in REQUESTED_CITY, scroll up and find it, its not like weather is changing every few seconds...',

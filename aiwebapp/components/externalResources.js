@@ -9,8 +9,6 @@ angular.module('ui-chat-app')
 		
 		var externalResourcesService = {};
 
-		externalResourcesService.aiResponse = '';
-
 		externalResourcesService.getWeatherInfo = function(city) {
 			var weatherObject = {
 				q: city,

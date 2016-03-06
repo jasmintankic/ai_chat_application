@@ -5,39 +5,18 @@
         .module('ui-chat-app')
         .factory('comunicationService', comunicationService);
 
-    function comunicationService(speechDatabase, interactionInformations) {
+    function comunicationService(speechDatabase, interactionInformations, $q, externalResourcesService) {
         var speechService = {
-            processAnswer: processAnswer
+            checkIfAskedForWeather: checkIfAskedForWeather,
+            checkIfAskedForName: checkIfAskedForName,
+            checkIfUserToldName: checkIfUserToldName,
+            checkForSimpleQuestion: checkForSimpleQuestion
         };
-
-        var AiResponse,
-            specificResponses = speechDatabase.specificResponses,
-            globalResponses = speechDatabase.globalResponses;
 
         return speechService;
 
         ////////////////
 
-        function processAnswer(message, isInit) {
-            AiResponse = '';
-
-            proceedWithAnswers(message);
-
-            if (_.isEmpty(AiResponse) && !isInit) {
-                AiResponse = _.sample(globalResponses.questionNotDefinedProperly);
-            } else if (isInit) {
-                AiResponse = _.sample(globalResponses.welcome);
-            }
-
-            return AiResponse;
-        }
-
-        function proceedWithAnswers(message) {
-            checkIfAskedForName(message);
-            checkIfUserToldName(message);
-            checkIfAskedForWeather(message);
-            checkForSimpleQuestion(message, specificResponses.greetingsObject);
-        }
 
         function checkForSimpleQuestion(message, questionObject) {
             var simpleQuestionValidator = 0;
@@ -50,84 +29,105 @@
 
             if (simpleQuestionValidator === questionObject.askedTrigger) {
                 if (questionObject.isAsked > 0) {
-                    AiResponse = _.sample(questionObject.alreadyAskedResponse);
+                    questionObject.isAsked++;
+                    return _.sample(questionObject.alreadyAskedResponse);
                 } else {
-                    AiResponse = _.sample(questionObject.response);
+                    questionObject.isAsked++;
+                    return _.sample(questionObject.response);
                 }
-                questionObject.isAsked++;
+                
             }
 
         }
 
         function checkIfAskedForWeather(message) {
+            var aiMessage = {};
+            aiMessage.type = 'ai';
+
+            var defer = $q.defer();
+
             var askedForWeatherValidator = 0;
-            angular.forEach(specificResponses.weatherObject.keys, function(value) {
+
+            angular.forEach(speechDatabase.specificResponses.weatherObject.keys, function(value) {
                 if (message.indexOf(value) >= 0) {
                     askedForWeatherValidator++;
                 }
             });
-            if (askedForWeatherValidator === specificResponses.weatherObject.askedTrigger) {
-                var requestedCity = interactionInformations.getKeywordFromQuestion(message, specificResponses.weatherObject.keywordSeperator, 3);
-                if (interactionInformations.checkIfAskedForCity(requestedCity, specificResponses.weatherObject.askedCities)) {
-                    AiResponse = _.sample(specificResponses.weatherObject.alreadyAskedResponse).replace('REQUESTED_CITY', requestedCity);
+            if (askedForWeatherValidator === speechDatabase.specificResponses.weatherObject.askedTrigger) {
+                var requestedCity = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.weatherObject.keywordSeperator, 3);
+                if (interactionInformations.checkIfAskedForCity(requestedCity, speechDatabase.specificResponses.weatherObject.askedCities)) {
+                    aiMessage.content = _.sample(speechDatabase.specificResponses.weatherObject.alreadyAskedResponse).replace('REQUESTED_CITY', requestedCity);
+                    defer.resolve(aiMessage);
                 } else {
-                    specificResponses.weatherObject.askedCities.push(requestedCity);
-                    AiResponse = interactionInformations.getWeatherInCity(requestedCity, specificResponses.weatherObject.response);
+                    speechDatabase.specificResponses.weatherObject.askedCities.push(requestedCity);
+                    externalResourcesService.getWeatherInfo(requestedCity).then(function(response) {
+                        aiMessage.content = _.sample(speechDatabase.specificResponses.weatherObject.response).replace('REQUESTED_CITY', requestedCity).replace('TEMP', Math.round(response.list[0].main.temp)).replace('WEATHER_DESC', response.list[0].weather[0].description);
+                        defer.resolve(aiMessage);
+                    });
                 }
+            } else {
+                defer.resolve(aiMessage);
             }
+
+            return defer.promise;
         };
 
 
         function checkIfAskedForName(message) {
             var askedFornameValidator = 0;
 
-            angular.forEach(specificResponses.nameObject.keys, function(value) {
+            angular.forEach(speechDatabase.specificResponses.nameObject.keys, function(value) {
                 if (message.indexOf(value) >= 0) {
                     askedFornameValidator++;
                 }
             });
 
-            if (askedFornameValidator === specificResponses.nameObject.askedTrigger) {
-                if (specificResponses.nameObject.isAsked > 0) {
+            if (askedFornameValidator === speechDatabase.specificResponses.nameObject.askedTrigger) {
+                if (speechDatabase.specificResponses.nameObject.isAsked > 0) {
                     if (interactionInformations.checkIfUserChangedName(interactionInformations.getUserName())) {
-                        AiResponse = _.sample(specificResponses.nameObject.refuseToSpeakAboutNames);
+                        speechDatabase.specificResponses.nameObject.isAsked++;
+                        return _.sample(speechDatabase.specificResponses.nameObject.refuseToSpeakAboutNames);
                     } else {
-                        AiResponse = _.sample(specificResponses.nameObject.alreadyAskedResponse);
+                        speechDatabase.specificResponses.nameObject.isAsked++;
+                        return _.sample(speechDatabase.specificResponses.nameObject.alreadyAskedResponse);
                     }
                 } else if (_.isEmpty(interactionInformations.getUserName())) {
-                    AiResponse = _.sample(specificResponses.nameObject.response);
+                    speechDatabase.specificResponses.nameObject.isAsked++;
+                    return _.sample(speechDatabase.specificResponses.nameObject.response);
                 } else if (!_.isEmpty(interactionInformations.getUserName())) {
-                    AiResponse = _.sample(specificResponses.nameObject.response).replace(', may i know your name?', '.');
+                    speechDatabase.specificResponses.nameObject.isAsked++;
+                    return _.sample(speechDatabase.specificResponses.nameObject.response).replace(', may i know your name?', '.');
                 }
-                specificResponses.nameObject.isAsked++;
             }
         };
 
         function checkIfUserToldName(message) {
             var userToldNameValidator = 0;
 
-            angular.forEach(specificResponses.userNameObject.keys, function(value) {
+            angular.forEach(speechDatabase.specificResponses.userNameObject.keys, function(value) {
                 if (message.indexOf(value) >= 0) {
                     userToldNameValidator++;
                 }
             });
 
-            if (userToldNameValidator === specificResponses.userNameObject.askedTrigger) {
+            if (userToldNameValidator === speechDatabase.specificResponses.userNameObject.askedTrigger) {
 
                 var keyWord = message.lastIndexOf('is');
                 var name = message.substring(keyWord + 3);
                 interactionInformations.setUserName(name);
 
-                if (specificResponses.userNameObject.isAsked > 0) {
+                if (speechDatabase.specificResponses.userNameObject.isAsked > 0) {
                     if (interactionInformations.checkIfUserChangedName(interactionInformations.getUserName())) {
-                        AiResponse = _.sample(specificResponses.userNameObject.nameChangeResponse).replace('USER_NAME', interactionInformations.getUserName()).replace('REAL_NAME', interactionInformations.getRealName());
+                        speechDatabase.specificResponses.userNameObject.isAsked++;
+                        return _.sample(speechDatabase.specificResponses.userNameObject.nameChangeResponse).replace('USER_NAME', interactionInformations.getUserName()).replace('REAL_NAME', interactionInformations.getRealName());
                     } else {
-                        AiResponse = _.sample(specificResponses.userNameObject.alreadyAskedResponse).replace('USER_NAME', interactionInformations.getUserName());
+                        speechDatabase.specificResponses.userNameObject.isAsked++;
+                        return _.sample(speechDatabase.specificResponses.userNameObject.alreadyAskedResponse).replace('USER_NAME', interactionInformations.getUserName());
                     }
                 } else {
-                    AiResponse = _.sample(specificResponses.userNameObject.response).replace('USER_NAME', interactionInformations.getUserName());
+                    speechDatabase.specificResponses.userNameObject.isAsked++;
+                    return _.sample(speechDatabase.specificResponses.userNameObject.response).replace('USER_NAME', interactionInformations.getUserName());
                 }
-                specificResponses.userNameObject.isAsked++;
             }
         };
     }

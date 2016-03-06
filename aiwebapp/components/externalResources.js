@@ -6,7 +6,7 @@ angular.module('ui-chat-app')
 	})
 
 	.factory('externalResourcesService', function($q, weatherInfoResource) {
-		
+
 		var externalResourcesService = {};
 
 		externalResourcesService.getWeatherInfo = function(city) {

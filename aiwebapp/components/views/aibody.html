@@ -7,7 +7,7 @@
 </div>
 <div class="chat-body" id="conversation">
 	<div ng-repeat="message in conversation">
-		<div ng-class="message.type === 'user' ? 'user-bubble' : 'ai-chat-bubble'">{{message.content}}</div>
+		<div ng-class="message.type === 'user' ? 'user-bubble' : 'ai-chat-bubble'" ng-bind-html="message.content"></div>
 		<div class="clearfix"></div>		
 	</div>
 </div>
@@ -19,3 +19,4 @@
 </div>
 </form>
 </div>
+<div class="well well-sm too-much-details" ng-if="showMoreInfo" ng-bind-html="fullInfo"></div>

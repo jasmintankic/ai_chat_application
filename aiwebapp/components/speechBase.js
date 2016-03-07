@@ -109,6 +109,30 @@
                         'Dont tell me you already forgot about weather in REQUESTED_CITY. i just told you, scroll up and find...'
                     ],
                     askedCities: []
+                },
+                wikiObject: {
+                    keys: ['about', 'tell'],
+                    askedTrigger: 2,
+                    keywordSeperator: 'about',
+                    response: [
+                        'Here is some info about ASKED_QUESTION',
+                        'I hope this info satisfies you, ASKED_QUESTION'
+                    ],
+                    alreadyAskedResponse: [
+                        'Already told you about ASKED_QUESTION, scroll up and find it, i wont repeat myself',
+                        'I told you that, i will not repeat it again',
+                        'Ok, i just told you that, scroll up and find info...'
+                    ],
+                    tooMuchTextResponses: [
+                        'Let me show you all info on right side of screen for better view, since i know a lot of things about ASKED_VALUE',
+                        'Since i know a lot info about ASKED_VALUE i showed it in box on right side for better view, take a look...'
+                    ],
+                    dontHaveInfoResponse: [
+                        'Sorry, i dont know anything about ASKED_VALUE, can i help you with something else?',
+                        'Sorry, i really dont have any info about ASKED_VALUE..',
+                        'Sorry, but i cant find any information about ASKED_VALUE...'
+                    ],
+                    askedValues: []
                 }
             }
         };

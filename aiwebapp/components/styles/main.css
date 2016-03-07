@@ -131,3 +131,11 @@ top: 11px;
     margin-top: 13px;
     width: 95px;
 }
+.too-much-details {
+    float: left;
+    width: 670px;
+    margin-top: 50px;
+    margin-left: 20px;
+    overflow-y: scroll;
+    max-height: 445px;
+}

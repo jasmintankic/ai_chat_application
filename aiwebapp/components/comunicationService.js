@@ -10,7 +10,8 @@
             checkIfAskedForWeather: checkIfAskedForWeather,
             checkIfAskedForName: checkIfAskedForName,
             checkIfUserToldName: checkIfUserToldName,
-            checkForSimpleQuestion: checkForSimpleQuestion
+            checkForSimpleQuestion: checkForSimpleQuestion,
+            checkIfNeedWikiData: checkIfNeedWikiData
         };
 
         return speechService;
@@ -62,6 +63,47 @@
                     speechDatabase.specificResponses.weatherObject.askedCities.push(requestedCity);
                     externalResourcesService.getWeatherInfo(requestedCity).then(function(response) {
                         aiMessage.content = _.sample(speechDatabase.specificResponses.weatherObject.response).replace('REQUESTED_CITY', requestedCity).replace('TEMP', Math.round(response.list[0].main.temp)).replace('WEATHER_DESC', response.list[0].weather[0].description);
+                        defer.resolve(aiMessage);
+                    });
+                }
+            } else {
+                defer.resolve(aiMessage);
+            }
+
+            return defer.promise;
+        };
+
+        function checkIfNeedWikiData(message) {
+            var aiMessage = {};
+            aiMessage.type = 'ai';
+
+            var defer = $q.defer();
+
+            var askedForWikiValidator = 0;
+
+            angular.forEach(speechDatabase.specificResponses.wikiObject.keys, function(value) {
+                if (message.indexOf(value) >= 0) {
+                    askedForWikiValidator++;
+                }
+            });
+            if (askedForWikiValidator === speechDatabase.specificResponses.wikiObject.askedTrigger) {
+                var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.wikiObject.keywordSeperator, 5);
+                if (interactionInformations.checkIfAskedForCity(requestedInfo, speechDatabase.specificResponses.wikiObject.askedValues)) {
+                    aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.alreadyAskedResponse).replace('ASKED_QUESTION', requestedInfo);
+                    defer.resolve(aiMessage);
+                } else {
+                    speechDatabase.specificResponses.wikiObject.askedValues.push(requestedInfo);
+                    externalResourcesService.getInfoFromWiki(requestedInfo).then(function(response) {
+                        angular.forEach(response.query.pages, function(value){
+                            if(value.extract && value.extract.length > 50) {
+                                aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.tooMuchTextResponses).replace('ASKED_VALUE', requestedInfo);
+                                aiMessage.fullContent = value.extract;
+                            } else if (value.extract && (value.extract.length < 50 && value.extract.length>5)) {
+                                aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.response).replace('ASKED_QUESTION', value.extract);
+                            } else {
+                                aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.dontHaveInfoResponse).replace('ASKED_VALUE', requestedInfo);
+                            }
+                        });
                         defer.resolve(aiMessage);
                     });
                 }

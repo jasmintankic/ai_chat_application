@@ -17,27 +17,39 @@
 
             $scope.conversation = [];
             $scope.userMessage;
+            $scope.fullInfo;
+            $scope.showMoreInfo = false;
 
             var init = function() {
                 processChatMessage('', true);
             };
 
             var processChatMessage = function(message, isInit) {
+                message = message.toLowerCase();
                 var aiResponses = [];
 
                 var aiMessage = {};
                 aiMessage.type = 'ai';
                 aiMessage.content = null;
 
+
                 if (isInit) {
                     aiMessage.content = _.sample(speechDatabase.globalResponses.welcome);
                     $scope.conversation.push(aiMessage);
                     autoChatScroll();
                 } else {
-                    $q.all([comunicationService.checkIfAskedForWeather(message)]).then(function(data) {
+                    $q.all([comunicationService.checkIfAskedForWeather(message),
+                        comunicationService.checkIfNeedWikiData(message)]
+                        ).then(function(data) {
+                            
+                        aiResponses.push(data[0].content, data[1].content, comunicationService.checkIfAskedForName(message), comunicationService.checkIfUserToldName(message), comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.greetingsObject));
                         
-                        aiResponses.push(data[0].content, comunicationService.checkIfAskedForName(message), comunicationService.checkIfUserToldName(message), comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.greetingsObject));
                         aiMessage.content = getCorrectAnswer(aiResponses);
+
+                        if(data[1].fullContent) {
+                            $scope.fullInfo = data[1].fullContent;
+                            $scope.showMoreInfo = true;
+                        }
 
                         if (_.isEmpty(aiMessage.content)) {
                             aiMessage.content = _.sample(speechDatabase.globalResponses.questionNotDefinedProperly);
@@ -50,6 +62,8 @@
             };
 
             $scope.sendMessage = function(message) {
+                $scope.fullInfo = '';
+                $scope.showMoreInfo = false;
                 if (!_.isEmpty(message)) {
                     var chatMessage = {};
                     chatMessage.type = 'user';

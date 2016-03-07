@@ -133,6 +133,18 @@
                         'Sorry, but i cant find any information about ASKED_VALUE...'
                     ],
                     askedValues: []
+                },
+                askedForAge: {
+                    keys: ['old', 'you'],
+                    askedTrigger: 2,
+                    response: [
+                        'I am created on 1. March 2016, so that means im just MY_AGE old'
+                    ],
+                    alreadyAskedResponse: [
+                        'Already told you about my age, im MY_AGE old...',
+                        'I told you my age, im still young only MY_AGE old...',
+                        'You like to ask same questions do you ? Im MY_AGE old...'
+                    ]
                 }
             }
         };

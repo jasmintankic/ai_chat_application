@@ -24,6 +24,8 @@
                 processChatMessage('', true);
             };
 
+            console.log(moment('2016-03-01').fromNow(true));
+            
             var processChatMessage = function(message, isInit) {
                 message = message.toLowerCase();
                 var aiResponses = [];

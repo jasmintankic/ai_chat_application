@@ -11,7 +11,8 @@
             checkIfAskedForName: checkIfAskedForName,
             checkIfUserToldName: checkIfUserToldName,
             checkForSimpleQuestion: checkForSimpleQuestion,
-            checkIfNeedWikiData: checkIfNeedWikiData
+            checkIfNeedWikiData: checkIfNeedWikiData,
+            checkForSimpleQuestionWithReplaceWar: checkForSimpleQuestionWithReplaceWar
         };
 
         return speechService;
@@ -36,9 +37,29 @@
                     questionObject.isAsked++;
                     return _.sample(questionObject.response);
                 }
-                
-            }
 
+            }
+        }
+
+        function checkForSimpleQuestionWithReplaceWar(message, questionObject, whatToFind, whatToRepleace) {
+            var simpleQuestionValidator = 0;
+
+            angular.forEach(questionObject.keys, function(value) {
+                if (message.indexOf(value) >= 0) {
+                    simpleQuestionValidator++;
+                }
+            });
+
+            if (simpleQuestionValidator === questionObject.askedTrigger) {
+                if (questionObject.isAsked > 0) {
+                    questionObject.isAsked++;
+                    return _.sample(questionObject.alreadyAskedResponse).replace(whatToFind, whatToRepleace);;
+                } else {
+                    questionObject.isAsked++;
+                    return _.sample(questionObject.response).replace(whatToFind, whatToRepleace);;;
+                }
+
+            }
         }
 
         function checkIfAskedForWeather(message) {
@@ -82,24 +103,33 @@
             var askedForWikiValidator = 0;
 
             angular.forEach(speechDatabase.specificResponses.wikiObject.keys, function(value) {
-                if (message.indexOf(value) >= 0) {
+                if (message.lastIndexOf(value) >= 0) {
                     askedForWikiValidator++;
                 }
             });
+
             if (askedForWikiValidator === speechDatabase.specificResponses.wikiObject.askedTrigger) {
-                var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.wikiObject.keywordSeperator, 5);
+
+                if(message.lastIndexOf(speechDatabase.specificResponses.wikiObject.keys[3])!== -1) {
+                    var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.wikiObject.keywordSeperator, 9);
+                } else {
+                    var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.wikiObject.keywordSeperator, 6);
+                }
+
                 if (interactionInformations.checkIfAskedForCity(requestedInfo, speechDatabase.specificResponses.wikiObject.askedValues)) {
                     aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.alreadyAskedResponse).replace('ASKED_QUESTION', requestedInfo);
                     defer.resolve(aiMessage);
                 } else {
                     speechDatabase.specificResponses.wikiObject.askedValues.push(requestedInfo);
                     externalResourcesService.getInfoFromWiki(requestedInfo).then(function(response) {
-                        angular.forEach(response.query.pages, function(value){
-                            if(value.extract && value.extract.length > 50) {
-                                aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.tooMuchTextResponses).replace('ASKED_VALUE', requestedInfo);
-                                aiMessage.fullContent = value.extract;
-                            } else if (value.extract && (value.extract.length < 50 && value.extract.length>5)) {
-                                aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.response).replace('ASKED_QUESTION', value.extract);
+                        angular.forEach(response.query.pages, function(value) {
+                            if (value.extract && (value.extract.indexOf(speechDatabase.specificResponses.wikiObject.errorHandler) < 0)) {
+                                if (value.extract.length > 50) {
+                                    aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.tooMuchTextResponses).replace('ASKED_VALUE', requestedInfo);
+                                    aiMessage.fullContent = value.extract;
+                                } else {
+                                    aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.response).replace('ASKED_QUESTION', value.extract);
+                                }
                             } else {
                                 aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.dontHaveInfoResponse).replace('ASKED_VALUE', requestedInfo);
                             }

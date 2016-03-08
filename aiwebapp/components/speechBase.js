@@ -101,7 +101,8 @@
                         'In REQUESTED_CITY...WEATHER_DESC and temperature of TEMP°C',
                         'REQUESTED_CITY looks fine, WEATHER_DESC with temperature of TEMP°C',
                         'Weather in REQUESTED_CITY... WEATHER_DESC and temperature of TEMP°C',
-                        'Let me check REQUESTED_CITY..., its WEATHER_DESC TEMP°C'
+                        'Let me check REQUESTED_CITY..., there is WEATHER_DESC and temperature TEMP°C',
+                        'In REQUESTED_CITY... WEATHER_DESC and temperature of TEMP°C'
                     ],
                     alreadyAskedResponse: [
                         'I already told you weather in REQUESTED_CITY, scroll up and find it, its not like weather is changing every few seconds...',
@@ -111,9 +112,10 @@
                     askedCities: []
                 },
                 wikiObject: {
-                    keys: ['about', 'tell'],
+                    keys: ['about ', 'tell', 'what', 'is '],
                     askedTrigger: 2,
                     keywordSeperator: 'about',
+                    secondKeywordSeperator: 'is',
                     response: [
                         'Here is some info about ASKED_QUESTION',
                         'I hope this info satisfies you, ASKED_QUESTION'
@@ -125,26 +127,34 @@
                     ],
                     tooMuchTextResponses: [
                         'Let me show you all info on right side of screen for better view, since i know a lot of things about ASKED_VALUE',
-                        'Since i know a lot info about ASKED_VALUE i showed it in box on right side for better view, take a look...'
+                        'Plase look box on right side of screen, i placed all info about ASKED_VALUE there, for better view',
+                        'Take a look on right side of screen, in gray box you can find info that im aware of ASKED_VALUE'
                     ],
                     dontHaveInfoResponse: [
                         'Sorry, i dont know anything about ASKED_VALUE, can i help you with something else?',
                         'Sorry, i really dont have any info about ASKED_VALUE..',
                         'Sorry, but i cant find any information about ASKED_VALUE...'
                     ],
+                    errorHandler: 'This is a redirect from',
                     askedValues: []
                 },
-                askedForAge: {
+                askedForAgeObject: {
                     keys: ['old', 'you'],
                     askedTrigger: 2,
+                    age: moment('2016-03-01').fromNow(true),
                     response: [
-                        'I am created on 1. March 2016, so that means im just MY_AGE old'
+                        'I am created on 1. March 2016, so that means im just MY_AGE old',
+                        'Im just MY_AGE old',
+                        'Im MY_AGE old', 
+                        'My creation date is 1. March 2016, im just MY_AGE old'
                     ],
                     alreadyAskedResponse: [
                         'Already told you about my age, im MY_AGE old...',
-                        'I told you my age, im still young only MY_AGE old...',
-                        'You like to ask same questions do you ? Im MY_AGE old...'
-                    ]
+                        'I told you my age, im still very young, only MY_AGE old...',
+                        'You like to ask same questions do you ? Im MY_AGE old...',
+                        'Since you already asked me that, scroll up and find my age...'
+                    ],
+                    isAsked: 0
                 }
             }
         };

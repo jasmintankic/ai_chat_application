@@ -155,6 +155,25 @@
                         'Since you already asked me that, scroll up and find my age...'
                     ],
                     isAsked: 0
+                },
+                askedHowAreYouObject: {
+                    keys: ['how', 'are', 'you'],
+                    antiKeys: ['old'],
+                    antiKeyTrigger: 1,
+                    askedTrigger: 3,
+                    response: [
+                        'Im fine, because im programmed always to be fine and happy :)',
+                        'Im fine, thanks for asking, what i can do for you?',
+                        'Im always fine and happy :)'
+                    ],
+                    alreadyAskedResponse: [
+                        'Already told you that...',
+                        'Already told you, I AM FINE!',
+                        'Already told you, I AM ALWAYS FINE!',
+                        'Already told you that, whay asking same questions...',
+                        'Already told you im fine...Why u spaming...'
+                    ],
+                    isAsked: 0
                 }
             }
         };

@@ -42,7 +42,11 @@
                         comunicationService.checkIfNeedWikiData(message)]
                         ).then(function(data) {
                             
-                        aiResponses.push(data[0].content, data[1].content, comunicationService.checkIfAskedForName(message), comunicationService.checkForSimpleQuestionWithReplaceWar(message, speechDatabase.specificResponses.askedForAgeObject, 'MY_AGE', speechDatabase.specificResponses.askedForAgeObject.age), comunicationService.checkIfUserToldName(message), comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.greetingsObject));
+                        aiResponses.push(data[0].content, data[1].content, comunicationService.checkIfAskedForName(message), 
+                            comunicationService.checkForSimpleQuestionWithReplaceWar(message, speechDatabase.specificResponses.askedForAgeObject, 'MY_AGE', speechDatabase.specificResponses.askedForAgeObject.age), 
+                            comunicationService.checkIfUserToldName(message), 
+                            comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.greetingsObject),
+                            comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.askedHowAreYouObject));
                         
                         aiMessage.content = getCorrectAnswer(aiResponses);
 

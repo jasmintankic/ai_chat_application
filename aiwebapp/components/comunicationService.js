@@ -29,6 +29,18 @@
                 }
             });
 
+            if(questionObject.antiKeys) {
+                var antiKeyValidator = 0;
+                angular.forEach(questionObject.antiKeys, function(value) {
+                    if (message.indexOf(value) >= 0) {
+                        antiKeyValidator++;
+                    }
+                });
+                if(antiKeyValidator === questionObject.antiKeyTrigger) {
+                    simpleQuestionValidator = null;
+                }
+            }
+
             if (simpleQuestionValidator === questionObject.askedTrigger) {
                 if (questionObject.isAsked > 0) {
                     questionObject.isAsked++;
@@ -42,15 +54,15 @@
         }
 
         function checkForSimpleQuestionWithReplaceWar(message, questionObject, whatToFind, whatToRepleace) {
-            var simpleQuestionValidator = 0;
+            var simpleQuestionValidatorRepleacer = 0;
 
             angular.forEach(questionObject.keys, function(value) {
                 if (message.indexOf(value) >= 0) {
-                    simpleQuestionValidator++;
+                    simpleQuestionValidatorRepleacer++;
                 }
             });
 
-            if (simpleQuestionValidator === questionObject.askedTrigger) {
+            if (simpleQuestionValidatorRepleacer === questionObject.askedTrigger) {
                 if (questionObject.isAsked > 0) {
                     questionObject.isAsked++;
                     return _.sample(questionObject.alreadyAskedResponse).replace(whatToFind, whatToRepleace);;

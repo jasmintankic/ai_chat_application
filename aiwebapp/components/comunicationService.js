@@ -133,13 +133,24 @@
 
             var defer = $q.defer();
 
-            var askedForWikiValidator = 0;
+            var askedForWikiValidator = 0,
+                antiKeysWikiValidator = 0;
 
             angular.forEach(speechDatabase.specificResponses.wikiObject.keys, function(value) {
                 if (message.lastIndexOf(value) >= 0) {
                     askedForWikiValidator++;
                 }
             });
+
+            angular.forEach(speechDatabase.specificResponses.wikiObject.antiKeys, function(value) {
+                if (message.lastIndexOf(value) >= 0) {
+                    antiKeysWikiValidator++;
+                }
+            });
+
+            if (antiKeysWikiValidator >= speechDatabase.specificResponses.wikiObject.antiKeyTrigger) {
+                askedForWikiValidator = null;
+            }
 
             if (askedForWikiValidator === speechDatabase.specificResponses.wikiObject.askedTrigger) {
 

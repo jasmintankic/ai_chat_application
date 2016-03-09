@@ -114,6 +114,8 @@
                 wikiObject: {
                     keys: ['about ', 'tell', 'what', 'is '],
                     askedTrigger: 2,
+                    antiKeys: ['your', 'name'],
+                    antiKeyTrigger: 1,
                     keywordSeperator: 'about',
                     secondKeywordSeperator: 'is',
                     response: [

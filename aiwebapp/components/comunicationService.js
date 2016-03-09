@@ -29,14 +29,14 @@
                 }
             });
 
-            if(questionObject.antiKeys) {
+            if (questionObject.antiKeys) {
                 var antiKeyValidator = 0;
                 angular.forEach(questionObject.antiKeys, function(value) {
                     if (message.indexOf(value) >= 0) {
                         antiKeyValidator++;
                     }
                 });
-                if(antiKeyValidator === questionObject.antiKeyTrigger) {
+                if (antiKeyValidator >= questionObject.antiKeyTrigger) {
                     simpleQuestionValidator = null;
                 }
             }
@@ -62,15 +62,36 @@
                 }
             });
 
-            if (simpleQuestionValidatorRepleacer === questionObject.askedTrigger) {
-                if (questionObject.isAsked > 0) {
-                    questionObject.isAsked++;
-                    return _.sample(questionObject.alreadyAskedResponse).replace(whatToFind, whatToRepleace);;
-                } else {
-                    questionObject.isAsked++;
-                    return _.sample(questionObject.response).replace(whatToFind, whatToRepleace);;;
+            if (questionObject.antiKeys) {
+                var antiKeyValidator = 0;
+                angular.forEach(questionObject.antiKeys, function(value) {
+                    if (message.indexOf(value) >= 0) {
+                        antiKeyValidator++;
+                    }
+                });
+                if (antiKeyValidator >= questionObject.antiKeyTrigger) {
+                    simpleQuestionValidatorRepleacer = null;
                 }
+            }
 
+            if (simpleQuestionValidatorRepleacer === questionObject.askedTrigger) {
+                if (questionObject.askedValues) {
+                    var askedFor = interactionInformations.getKeywordFromQuestion(message, questionObject.keywordSeperator, 4);
+                    if(interactionInformations.checkIfAskedForThat(askedFor, questionObject.askedValues)) {
+                        return _.sample(questionObject.alreadyAskedResponse).replace(whatToFind, askedFor).replace(whatToFind, askedFor);
+                    } else {
+                        questionObject.askedValues.push(askedFor);
+                        return _.sample(questionObject.response).replace(whatToFind, askedFor).replace(whatToFind, askedFor);
+                    }
+                } else {
+                    if (questionObject.isAsked > 0) {
+                        questionObject.isAsked++;
+                        return _.sample(questionObject.alreadyAskedResponse).replace(whatToFind, whatToRepleace);
+                    } else {
+                        questionObject.isAsked++;
+                        return _.sample(questionObject.response).replace(whatToFind, whatToRepleace);
+                    }
+                }
             }
         }
 
@@ -89,7 +110,7 @@
             });
             if (askedForWeatherValidator === speechDatabase.specificResponses.weatherObject.askedTrigger) {
                 var requestedCity = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.weatherObject.keywordSeperator, 3);
-                if (interactionInformations.checkIfAskedForCity(requestedCity, speechDatabase.specificResponses.weatherObject.askedCities)) {
+                if (interactionInformations.checkIfAskedForThat(requestedCity, speechDatabase.specificResponses.weatherObject.askedCities)) {
                     aiMessage.content = _.sample(speechDatabase.specificResponses.weatherObject.alreadyAskedResponse).replace('REQUESTED_CITY', requestedCity);
                     defer.resolve(aiMessage);
                 } else {
@@ -122,13 +143,13 @@
 
             if (askedForWikiValidator === speechDatabase.specificResponses.wikiObject.askedTrigger) {
 
-                if(message.lastIndexOf(speechDatabase.specificResponses.wikiObject.keys[3])!== -1) {
+                if (message.lastIndexOf(speechDatabase.specificResponses.wikiObject.keys[3]) !== -1) {
                     var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.wikiObject.keywordSeperator, 9);
                 } else {
                     var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.wikiObject.keywordSeperator, 6);
                 }
 
-                if (interactionInformations.checkIfAskedForCity(requestedInfo, speechDatabase.specificResponses.wikiObject.askedValues)) {
+                if (interactionInformations.checkIfAskedForThat(requestedInfo, speechDatabase.specificResponses.wikiObject.askedValues)) {
                     aiMessage.content = _.sample(speechDatabase.specificResponses.wikiObject.alreadyAskedResponse).replace('ASKED_QUESTION', requestedInfo);
                     defer.resolve(aiMessage);
                 } else {

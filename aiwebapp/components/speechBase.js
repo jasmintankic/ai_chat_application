@@ -174,6 +174,25 @@
                         'Already told you im fine...Why u spaming...'
                     ],
                     isAsked: 0
+                },
+                askedPersonalAreYouObject: {
+                    keys: ['are', 'you'],
+                    antiKeys: ['old', 'how'],
+                    keywordSeperator: 'you ',
+                    antiKeyTrigger: 1,
+                    askedTrigger: 2,
+                    response: [
+                        'No, im just machine...',
+                        'No, im not, im just machine...',
+                        'If you think one machine is ASKED_VALUE, then I,am too...'
+                    ],
+                    alreadyAskedResponse: [
+                        'Already told you that...',
+                        'Already told you, i am just machine...',
+                        'Already told you that im just a machine, if you consider that one machine is ASKED_VALUE, then im too ASKED_VALUE'
+                    ],
+                    isAsked: 0,
+                    askedValues: []
                 }
             }
         };

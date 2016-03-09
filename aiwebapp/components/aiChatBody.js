@@ -46,8 +46,9 @@
                             comunicationService.checkForSimpleQuestionWithReplaceWar(message, speechDatabase.specificResponses.askedForAgeObject, 'MY_AGE', speechDatabase.specificResponses.askedForAgeObject.age), 
                             comunicationService.checkIfUserToldName(message), 
                             comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.greetingsObject),
-                            comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.askedHowAreYouObject));
-                        
+                            comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.askedHowAreYouObject),
+                            comunicationService.checkForSimpleQuestionWithReplaceWar(message, speechDatabase.specificResponses.askedPersonalAreYouObject, 'ASKED_VALUE', speechDatabase.specificResponses.askedPersonalAreYouObject.askedValues[0]));
+
                         aiMessage.content = getCorrectAnswer(aiResponses);
 
                         if(data[1].fullContent) {

@@ -12,7 +12,7 @@
             getRealName: getRealName,
             checkIfUserChangedName: checkIfUserChangedName,
             getKeywordFromQuestion: getKeywordFromQuestion,
-            checkIfAskedForCity: checkIfAskedForCity
+            checkIfAskedForThat: checkIfAskedForThat
         };
 
         var userInfo = {};
@@ -46,10 +46,10 @@
             return userInfo.realName;
         }
 
-        function checkIfAskedForCity(city, cities) {
+        function checkIfAskedForThat(askedValue, askedValues) {
             var asked = false;
-            angular.forEach(cities, function(value){
-                if(city === value) {
+            angular.forEach(askedValues, function(value){
+                if(askedValue === value) {
                     asked = true;
                 }
             });

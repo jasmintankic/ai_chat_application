@@ -5,7 +5,7 @@
         .module('ui-chat-app')
         .directive('aiChatBody', aiChatBody);
 
-    function aiChatBody($timeout, comunicationService, externalResourcesService, $q, speechDatabase) {
+    function aiChatBody($timeout, comunicationService, $q, speechDatabase) {
         var directive = {
             restrict: 'E',
             templateUrl: 'components/views/aibody.html',

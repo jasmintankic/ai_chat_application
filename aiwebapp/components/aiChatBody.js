@@ -20,11 +20,11 @@
             $scope.fullInfo;
             $scope.showMoreInfo = false;
 
-            var init = function() {
+            function init () {
                 processChatMessage('', true);
-            };
+            }
             
-            var processChatMessage = function(message, isInit) {
+            function processChatMessage(message, isInit) {
                 message = message.toLowerCase();
                 var aiResponses = [];
 
@@ -52,6 +52,7 @@
                         aiMessage.content = getCorrectAnswer(aiResponses);
 
                         if(data[1].fullContent) {
+                            $scope.showHelp = false;
                             $scope.fullInfo = data[1].fullContent;
                             $scope.showMoreInfo = true;
                         }
@@ -64,7 +65,7 @@
                         autoChatScroll();
                     });
                 }
-            };
+            }
 
             $scope.sendMessage = function(message) {
                 $scope.fullInfo = '';
@@ -79,7 +80,12 @@
                 }
             };
 
-            var getCorrectAnswer = function(answers) {
+            $scope.toggleHelp = function () {
+                $scope.showMoreInfo = false;
+                $scope.showHelp = !$scope.showHelp;
+            };
+
+            function getCorrectAnswer(answers) {
                 var answer;
                 angular.forEach(answers, function(value) {
                     if (!_.isEmpty(value)) {
@@ -87,14 +93,14 @@
                     }
                 });
                 return answer;
-            };
+            }
 
-            var autoChatScroll = function() {
+            function autoChatScroll() {
                 $timeout(function() {
                     var box = document.getElementById('conversation');
                     box.scrollTop = box.scrollHeight;
                 });
-            };
+            }
 
             init();
         }

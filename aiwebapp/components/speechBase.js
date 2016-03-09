@@ -34,7 +34,11 @@
                     response: [
                         'My name is Bot 2016, thanks for asking, may i know your name?',
                         'My name is Bot 2016, may i know your name?',
-                        'You can see my name on top of this chat window, its Bot 2016, may i know your name?'
+                        'You can see my name on top of this chat window, its Bot 2016, may i know your name?',
+                        'My name is Bot 2016, its not cool name but what i can do...May i know your name ?',
+                        'My name is Bot 2016, and can you tell me your name ?',
+                        'My name is Bot 2016, can you tell me your name?',
+                        'Thanks for asking!, my name is Bot 2016, and can i know your name?'
                     ],
                     alreadyAskedResponse: [
                         'You already asked me for name, its Bot 2016!',

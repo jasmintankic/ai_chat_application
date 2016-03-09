@@ -1,22 +1,39 @@
 <div class="ai-chat-body-wrapper">
-<div class="chat-header">AI - Chat Window</div>
-<div class="chat-details">
-	<img class="ai-profile-image" src="/components/styles/images/google-robot.jpg">
-	<div>BOT 2016</div>
-	<div>Artificial Intelignce Chat Bot</div>
-</div>
-<div class="chat-body" id="conversation">
-	<div ng-repeat="message in conversation">
-		<div ng-class="message.type === 'user' ? 'user-bubble' : 'ai-chat-bubble'" ng-bind-html="message.content"></div>
-		<div class="clearfix"></div>		
-	</div>
-</div>
-<div class="clearfix"></div>
-<form ng-submit="sendMessage(userMessage)">
-	<div class="chat-container">
-	<input class="form-control message-container" ng-model="userMessage">
-	<button type="button" ng-click="sendMessage(userMessage)" class="btn btn-info send-button-wrapper">Send</button>
-</div>
-</form>
+    <div class="chat-header">AI - Chat Window</div>
+    <div class="chat-details">
+        <img class="ai-profile-image" src="/components/styles/images/google-robot.jpg">
+        <div>BOT 2016</div>
+        <div>Artificial Intelignce Chat Bot</div>
+        <button ng-click="toggleHelp()" type="button" class="btn btn-success help-btn-wrapper">HELP</button>
+    </div>
+    <div class="chat-body" id="conversation">
+        <div ng-repeat="message in conversation">
+            <div ng-class="message.type === 'user' ? 'user-bubble' : 'ai-chat-bubble'" ng-bind-html="message.content"></div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <form ng-submit="sendMessage(userMessage)">
+        <div class="chat-container">
+            <input class="form-control message-container" ng-model="userMessage">
+            <button type="button" ng-click="sendMessage(userMessage)" class="btn btn-info send-button-wrapper">Send</button>
+        </div>
+    </form>
 </div>
 <div class="well well-sm too-much-details" ng-if="showMoreInfo" ng-bind-html="fullInfo"></div>
+<div class="panel panel-success help-container" ng-if="showHelp">
+    <div class="panel-heading">
+        <h3 class="panel-title">How to use BOT 2016 - HELP</h3>
+    </div>
+    <div class="panel-body">
+        You can ask bot:
+        <ul>
+        	<li>Abot informations for any country or city, for example <b>"Can you tell me about Barcelona"</b></li>
+        	<li>About live weather in any city, for example <b>"Can you tell me weather in Tuzla"</b></li>
+        	<li>About anything, for example <b>"Can you tell me about Nokia"</b>, or <b>"What is Cyborg"</b></li>
+            <li>About his name</li>
+            <li>How is he today</li>
+            <li>About his age, for example <b>"How old are you?"</b></li>
+        </ul>
+    </div>
+</div>

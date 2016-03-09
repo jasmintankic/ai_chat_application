@@ -139,3 +139,15 @@ top: 11px;
     overflow-y: scroll;
     max-height: 445px;
 }
+.help-btn-wrapper {
+    position: absolute;
+    right: 20px;
+    top: 11px;
+}
+.help-container {
+    float: left;
+    width: 500px;
+    margin-top: 50px;
+    margin-left: 20px;
+    max-height: 445px;    
+}

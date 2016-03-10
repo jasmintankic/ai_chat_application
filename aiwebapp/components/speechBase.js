@@ -73,11 +73,10 @@
                     ],
                     nameChangeResponse: [
                         'Hey man, you told me that your name is REAL_NAME, and now its USER_NAME, well then i am Florentino Juan Antonio Sanchez',
-                        'Hey!, first you told me that you are REAL_NAME, now you are telling me its USER_NAME, you dont know your name ? Taking too much drugs lately ?',
+                        'Hey!, first you told me that you are REAL_NAME, now you are telling me its USER_NAME, you dont know your name ? Taking too much medicaments lately ?',
                         'Hmm, first you are telling me that you are REAL_NAME, and now you are saying that you are USER_NAME, STOP taking too much medicaments...',
                         'I hope you are just testing my memory, but you told me two diferent names...first REAL_NAME, then USER_NAME..., ok then, my name is Esteban Rodriguez',
-                        'So we are playing LIE ME ABOUT NAME, ok my name is Rodrigo Munoz...',
-                        'Well i dont know what game are you playing but, but i can do same thing, my name is Francisco Facundo Canizares'
+                        'So we are playing LIE ME ABOUT NAME, first you prestented yourself as REAL_NAME and now you say you are USER_NAME, ok then my name is Rodrigo Munoz...'
                     ],
                     isAsked: 0
                 },
@@ -100,6 +99,8 @@
                 weatherObject: {
                     keys: ['weather', 'in'],
                     askedTrigger: 2,
+                    antiKeys: ['what'],
+                    antiKeyTrigger: 1,
                     keywordSeperator: 'in',
                     response: [
                         'In REQUESTED_CITY...WEATHER_DESC and temperature of TEMP°C',
@@ -118,7 +119,7 @@
                 wikiObject: {
                     keys: ['about ', 'tell', 'what', 'is '],
                     askedTrigger: 2,
-                    antiKeys: ['your', 'name'],
+                    antiKeys: ['your', 'name', 'purpose'],
                     antiKeyTrigger: 1,
                     keywordSeperator: 'about',
                     secondKeywordSeperator: 'is',
@@ -223,6 +224,33 @@
                     ],
                     isAsked: 0,
                     askedValues: []
+                },
+                askedForPurposeObject: {
+                    keys: ['your', 'purpose'],
+                    askedTrigger: 2,
+                    response: [
+                        'My purpose is to help my makers to pass exam from Artificial Inteligence subject at Faculty of Information Technologies, and i hope i will sucess in that :)'
+                    ],
+                    alreadyAskedResponse: [
+                        'I dont know why u are asking me same thing again, already told you, scroll up and find, i wont repeat same things again...',
+                        'Alrady told you that, i think that you are just testing my memory...',
+                        'Told you that...scroll up and find...'
+                    ],
+                    isAsked: 0
+                },
+                askedAboutHimselfObject: {
+                    keys: ['about', 'yourself'],
+                    askedTrigger: 2,
+                    response: [
+                        'Ok, my name is Bot 2016, im created on 1. March 2016, im part of practical exam on Artificial Inteligence subject at Faculty of Information Technologies...',
+                        'My name is Bot 2016, my creation date is 1. March 2016 and im here to help my makers to pass Artificial Inteligence exam at Faculty of Information Technologies...'
+                    ],
+                    alreadyAskedResponse: [
+                        'I dont know why u are asking me same thing again, already told you, scroll up and find, i wont repeat same things again...',
+                        'Alrady told you that, i think that you are just testing my memory...',
+                        'Told you that...scroll up and find...'
+                    ],
+                    isAsked: 0
                 }
             }
         };

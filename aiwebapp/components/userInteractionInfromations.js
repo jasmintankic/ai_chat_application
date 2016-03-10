@@ -12,7 +12,8 @@
             getRealName: getRealName,
             checkIfUserChangedName: checkIfUserChangedName,
             getKeywordFromQuestion: getKeywordFromQuestion,
-            checkIfAskedForThat: checkIfAskedForThat
+            checkIfAskedForThat: checkIfAskedForThat,
+            checkIfConflict: checkIfConflict
         };
 
         var userInfo = {};
@@ -60,7 +61,22 @@
             var keyWord = message.lastIndexOf(key);
             var targetWord = message.substring(keyWord + seperator);
             return targetWord;
-        };
+        }
+
+        function checkIfConflict(message, antiKeys, antiTriger) {
+            var antiValidator = 0;
+            angular.forEach(antiKeys, function(value) {
+                if (message.indexOf(value) >= 0) {
+                    antiValidator++;
+                }
+            });
+
+            if (antiValidator >= antiTriger) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
     }
 

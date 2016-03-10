@@ -102,14 +102,18 @@
 
             var defer = $q.defer();
 
-            var askedForWeatherValidator = 0;
+            var askedForWeatherValidator = 0,
+                antiKeyValidator = 0,
+                shouldNotProceed = interactionInformations.checkIfConflict(message, speechDatabase.specificResponses.weatherObject.antiKeys, speechDatabase.specificResponses.weatherObject.antiKeyTrigger);
+
 
             angular.forEach(speechDatabase.specificResponses.weatherObject.keys, function(value) {
                 if (message.indexOf(value) >= 0) {
                     askedForWeatherValidator++;
                 }
             });
-            if (askedForWeatherValidator === speechDatabase.specificResponses.weatherObject.askedTrigger) {
+
+            if (askedForWeatherValidator === speechDatabase.specificResponses.weatherObject.askedTrigger && !shouldNotProceed) {
                 var requestedCity = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.weatherObject.keywordSeperator, 3);
                 if (interactionInformations.checkIfAskedForThat(requestedCity, speechDatabase.specificResponses.weatherObject.askedCities)) {
                     aiMessage.content = _.sample(speechDatabase.specificResponses.weatherObject.alreadyAskedResponse).replace('REQUESTED_CITY', requestedCity);

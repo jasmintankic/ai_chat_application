@@ -12,7 +12,7 @@ angular.module('ui-chat-app')
 			imgSize: 'medium',
 			searchType: 'image',
 			fileType: 'jpg',
-			num: 1,
+			num: 6,
 			key: 'AIzaSyCd3pY89Qp9AcXIOX5H82vY5ljq5zGInQM',
 			cx: '002902139457744718226:_qpao-l4lsc'
 		});

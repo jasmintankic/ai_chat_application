@@ -5,7 +5,7 @@
         .module('ui-chat-app')
         .directive('aiChatBody', aiChatBody);
 
-    function aiChatBody($timeout, comunicationService, $q, speechDatabase) {
+    function aiChatBody($timeout, comunicationService, $q, speechDatabase, externalResourcesService) {
         var directive = {
             restrict: 'E',
             templateUrl: 'components/views/aibody.html',
@@ -19,6 +19,8 @@
             $scope.userMessage;
             $scope.fullInfo;
             $scope.showMoreInfo = false;
+            $scope.showImages = false;
+            $scope.photosToShow = [];
 
             function init () {
                 processChatMessage('', true);
@@ -39,10 +41,10 @@
                     autoChatScroll();
                 } else {
                     $q.all([comunicationService.checkIfAskedForWeather(message),
-                        comunicationService.checkIfNeedWikiData(message)]
+                        comunicationService.checkIfNeedWikiData(message),
+                        comunicationService.checkIfAskedForImage(message)]
                         ).then(function(data) {
-                            
-                        aiResponses.push(data[0].content, data[1].content, comunicationService.checkIfAskedForName(message), 
+                        aiResponses.push(data[0].content, data[1].content, data[2].content, comunicationService.checkIfAskedForName(message), 
                             comunicationService.checkForSimpleQuestionWithReplaceWar(message, speechDatabase.specificResponses.askedForAgeObject, 'MY_AGE', speechDatabase.specificResponses.askedForAgeObject.age), 
                             comunicationService.checkIfUserToldName(message), 
                             comunicationService.checkForSimpleQuestion(message, speechDatabase.specificResponses.greetingsObject),
@@ -55,6 +57,14 @@
                             $scope.showHelp = false;
                             $scope.fullInfo = data[1].fullContent;
                             $scope.showMoreInfo = true;
+                            $scope.showImages = false;
+                        }
+
+                        if(data[2].photos) {
+                            $scope.showHelp = false;
+                            $scope.photosToShow = data[2].photos;
+                            $scope.showMoreInfo = false;
+                            $scope.showImages = true;
                         }
 
                         if (_.isEmpty(aiMessage.content)) {
@@ -70,6 +80,7 @@
             $scope.sendMessage = function(message) {
                 $scope.fullInfo = '';
                 $scope.showMoreInfo = false;
+                $scope.showImages = false;
                 if (!_.isEmpty(message)) {
                     var chatMessage = {};
                     chatMessage.type = 'user';

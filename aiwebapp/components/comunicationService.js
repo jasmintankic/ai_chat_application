@@ -12,7 +12,8 @@
             checkIfUserToldName: checkIfUserToldName,
             checkForSimpleQuestion: checkForSimpleQuestion,
             checkIfNeedWikiData: checkIfNeedWikiData,
-            checkForSimpleQuestionWithReplaceWar: checkForSimpleQuestionWithReplaceWar
+            checkForSimpleQuestionWithReplaceWar: checkForSimpleQuestionWithReplaceWar,
+            checkIfAskedForImage: checkIfAskedForImage
         };
 
         return speechService;
@@ -117,6 +118,57 @@
                     speechDatabase.specificResponses.weatherObject.askedCities.push(requestedCity);
                     externalResourcesService.getWeatherInfo(requestedCity).then(function(response) {
                         aiMessage.content = _.sample(speechDatabase.specificResponses.weatherObject.response).replace('REQUESTED_CITY', requestedCity).replace('TEMP', Math.round(response.list[0].main.temp)).replace('WEATHER_DESC', response.list[0].weather[0].description);
+                        defer.resolve(aiMessage);
+                    });
+                }
+            } else {
+                defer.resolve(aiMessage);
+            }
+
+            return defer.promise;
+        };
+
+        function checkIfAskedForImage(message) {
+            var aiMessage = {};
+            aiMessage.type = 'ai';
+
+            var defer = $q.defer();
+
+            var primaryValidator = 0;
+
+            angular.forEach(speechDatabase.specificResponses.askedForGoogleImages.secondaryKeys, function(value) {
+                if (message.indexOf(value) >= 0) {
+                    primaryValidator++;
+                }
+            });
+
+            if(speechDatabase.specificResponses.askedForGoogleImages.askedTrigger !== primaryValidator) {
+                var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.askedForGoogleImages.keywordSeperator, 3);
+                primaryValidator = 0;
+                angular.forEach(speechDatabase.specificResponses.askedForGoogleImages.keys, function(value) {
+                    if (message.indexOf(value) >= 0) {
+                        primaryValidator++;
+                    }
+                });
+            } else {
+                var requestedInfo = interactionInformations.getKeywordFromQuestion(message, speechDatabase.specificResponses.askedForGoogleImages.secondKeywordSeperator, 3);
+            }
+
+            if (primaryValidator === speechDatabase.specificResponses.wikiObject.askedTrigger) {
+                if (interactionInformations.checkIfAskedForThat(requestedInfo, speechDatabase.specificResponses.askedForGoogleImages.askedValues)) {
+                    aiMessage.content = _.sample(speechDatabase.specificResponses.askedForGoogleImages.alreadyAskedResponse).replace('ASKED_VALUE', requestedInfo);
+                    defer.resolve(aiMessage);
+                } else {
+                    externalResourcesService.getRequestedImage(requestedInfo).then(function(response) {
+                        aiMessage.content = _.sample(speechDatabase.specificResponses.askedForGoogleImages.response).replace('ASKED_VALUE', requestedInfo);
+                        aiMessage.photos = [];
+                        angular.forEach(response.items, function(value) {
+                            aiMessage.photos.push(value.link);
+                        });
+                        speechDatabase.specificResponses.askedForGoogleImages.askedValues.push(requestedInfo);
+                        defer.resolve(aiMessage);
+                    }, function(){
+                        aiMessage.content = _.sample(speechDatabase.specificResponses.askedForGoogleImages.cantFindAlbumResponse).replace('ASKED_VALUE', requestedInfo);
                         defer.resolve(aiMessage);
                     });
                 }

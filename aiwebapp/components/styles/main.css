@@ -151,3 +151,18 @@ top: 11px;
     margin-left: 20px;
     max-height: 445px;    
 }
+.images-container {
+    width: 685px;
+}
+.photo {
+    width: 212px;
+    height: 150px;
+    float: left;
+    margin-right: 5px;
+}
+.top-photo-wrapper {
+    margin-bottom: 10px;
+}
+.photo-galery-background-wrapper {
+    background-image: url('/components/styles/images/giftly.png');
+}

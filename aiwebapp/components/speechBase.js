@@ -199,6 +199,30 @@
                     ],
                     isAsked: 0,
                     askedValues: []
+                },
+                askedForGoogleImages: {
+                    keys: ['show', 'me'],
+                    secondaryKeys: ['image', 'of'],
+                    keywordSeperator: 'me ',
+                    secondKeywordSeperator: 'of ',
+                    askedTrigger: 2,
+                    response: [
+                        'There you go, i found few photos for ASKED_VALUE...',
+                        'Take a look on right side of screen...', 
+                        'Ok, i have few photos of ASKED_VALUE, take a look right side of screen...'
+                    ],
+                    alreadyAskedResponse: [
+                        'I already showed you ASKED_VALUE...',
+                        'You already seen ASKED_VALUE, i wont show it again...',
+                        'Already showed ASKED_VALUE, use Google if you want to see that again...'
+                    ],
+                    cantFindAlbumResponse: [
+                        'Sorry i cant find my photo album for ASKED_VALUE at the moment, want me to show you something else?',
+                        'Ohh sorry, i really dont have ASKED_VALUE album at the moment, while im searching for it, want to me show you something else?',
+                        'Give me more time to find my personal galery of ASKED_VALUE, while im searching for it, want me to show you something else?'
+                    ],
+                    isAsked: 0,
+                    askedValues: []
                 }
             }
         };

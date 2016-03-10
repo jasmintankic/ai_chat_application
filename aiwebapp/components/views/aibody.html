@@ -31,9 +31,21 @@
         	<li>Abot informations for any country or city, for example <b>"Can you tell me about Barcelona"</b></li>
         	<li>About live weather in any city, for example <b>"Can you tell me weather in Tuzla"</b></li>
         	<li>About anything, for example <b>"Can you tell me about Nokia"</b>, or <b>"What is Cyborg"</b></li>
+            <li>To show you photos of anything, for example <b>Show me Audi A6</b>, or <b>Can i see image of Lionel Messi</b></li>
             <li>About his name</li>
             <li>How is he today</li>
             <li>About his age, for example <b>"How old are you?"</b></li>
         </ul>
+    </div>
+</div>
+<div class="panel panel-primary help-container images-container" ng-if="showImages">
+    <div class="panel-heading">
+        <h3 class="panel-title">BOT'S PERSONAL PHOTO GALERY</h3>
+    </div>
+    <div class="panel-body photo-galery-background-wrapper">
+        <div ng-repeat="photo in photosToShow track by $index">
+          <img ng-class="$index<3 ? 'img-thumbnail photo top-photo-wrapper' : 'img-thumbnail photo'" ng-src="{{photo}}" >  
+        </div>
+        
     </div>
 </div>

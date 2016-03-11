@@ -166,3 +166,16 @@ top: 11px;
 .photo-galery-background-wrapper {
     background-image: url('/components/styles/images/giftly.png');
 }
+.git-hub {
+    font-size: 30px;
+    margin-left: 90px;
+    margin-top: 10px;
+}
+.git-hub-link {
+    display: inline-block;
+    font-size: 18px;
+    position: relative;
+    top: -2px;
+    cursor: pointer;
+    text-decoration: underline;
+}

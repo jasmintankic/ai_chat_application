@@ -36,8 +36,8 @@
                         'My name is Bot 2016, may i know your name?',
                         'You can see my name on top of this chat window, its Bot 2016, may i know your name?',
                         'My name is Bot 2016, its not cool name but what i can do, may i know your name?',
-                        'My name is Bot 2016, may i know your name? ?',
-                        'My name is Bot 2016, may i know your name??',
+                        'My name is Bot 2016, may i know your name?',
+                        'My name is Bot 2016, may i know your name?',
                         'Thanks for asking!, my name is Bot 2016, may i know your name?'
                     ],
                     alreadyAskedResponse: [

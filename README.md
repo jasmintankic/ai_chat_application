@@ -2,4 +2,6 @@
 
 http://aichatapp.is-great.net/
 
-Praktični dio predmeta "Umjetna inteligencija" (FIT 2. godina master studija)
+Pratical part of subject "Artificial intelligence". This POC implementation is primitive example of aritficial intelligence and machine learning. Its fully written in AngularJs 1.6.
+
+
